@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="stats-icon green">
-                            <i class="bi bi-people"></i>
+                            <i class="iconly-boldProfile"></i>
                         </div>
                     </div>
                     <div class="col-8">
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="stats-icon blue">
-                            <i class="bi bi-person-x"></i>
+                            <i class="iconly-boldProfile"></i>
                         </div>
                     </div>
                     <div class="col-8">
@@ -56,8 +56,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Customer</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">No. Telp</th>
+                        <th scope="col">Perusahaan Custoemr</th>
                         <th scope="col">Alamat</th>
                         <th scope="col">Aksi</th>
                     </tr>

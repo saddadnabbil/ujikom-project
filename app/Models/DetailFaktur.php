@@ -20,7 +20,7 @@ class DetailFaktur extends Model
 
     public function faktur()
     {
-        return $this->belongsTo(Faktur::class);
+        return $this->belongsTo(Faktur::class, 'no_faktur', 'no_faktur');
     }
 
     public function produk()

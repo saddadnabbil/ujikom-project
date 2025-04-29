@@ -16,6 +16,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Nama Produk</th>
                     <th scope="col">Harga</th>
+                    <th scope="col">Jenis</th>
+                    <th scope="col">Stock</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>

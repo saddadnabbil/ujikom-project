@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index(): View|JsonResponse
     {
-        $customers = Customer::select('id', 'nama_customer', 'email', 'no_telp', 'alamat')
+        $customers = Customer::select('id', 'nama_customer', 'perusahaan_cust', 'alamat') // Removed email and no_telp
             ->orderBy('nama_customer')
             ->get();
 
@@ -44,6 +44,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerStoreRequest $request): RedirectResponse
     {
+        // Store customer without email and no_telp
         Customer::create($request->validated());
 
         return redirect()->route('customer.index')->with('success', 'Customer berhasil ditambahkan!');
@@ -58,6 +59,7 @@ class CustomerController extends Controller
      */
     public function update(CustomerUpdateRequest $request, Customer $customer): RedirectResponse
     {
+        // Update customer without email and no_telp
         $customer->update($request->validated());
 
         return redirect()->route('customer.index')->with('success', 'Customer berhasil diperbarui!');

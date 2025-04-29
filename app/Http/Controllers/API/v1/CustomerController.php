@@ -17,19 +17,19 @@ class CustomerController extends Controller implements APIInterface
 {
     public function show(int $id): JsonResponse
     {
-        $detailFaktur = DetailFaktur::with(['faktur', 'produk'])->findOrFail($id);
+        $customer = Customer::findOrFail($id);
         return response()->json([
             'code' => Response::HTTP_OK,
-            'data' => new DetailFakturShowResource($detailFaktur),
+            'data' => new CustomerShowResource($customer),
         ]);
     }
 
     public function edit(int $id): JsonResponse
     {
-        $detailFaktur = DetailFaktur::with(['faktur', 'produk'])->findOrFail($id);
+        $customer = Customer::findOrFail($id);
         return response()->json([
             'code' => Response::HTTP_OK,
-            'data' => new DetailFakturEditResource($detailFaktur),
+            'data' => new CustomerEditResource($customer),
         ]);
     }
 }

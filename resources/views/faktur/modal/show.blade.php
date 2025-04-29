@@ -6,33 +6,59 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="show_no_faktur">
+
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="show_customer" class="form-label">Customer</label>
+                        <label class="form-label">Customer</label>
                         <input type="text" class="form-control" id="show_customer" readonly>
                     </div>
-
                     <div class="col-md-6">
-                        <label for="show_perusahaan" class="form-label">Perusahaan</label>
+                        <label class="form-label">Perusahaan</label>
                         <input type="text" class="form-control" id="show_perusahaan" readonly>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="show_tanggal_faktur" class="form-label">Tanggal Faktur</label>
+                        <label class="form-label">Tanggal Faktur</label>
                         <input type="date" class="form-control" id="show_tanggal_faktur" readonly>
                     </div>
-
                     <div class="col-md-6">
-                        <label for="show_total" class="form-label">Total</label>
+                        <label class="form-label">Due Date</label>
+                        <input type="date" class="form-control" id="show_due_date" readonly>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Metode Bayar</label>
+                        <input type="text" class="form-control" id="show_metode_bayar" readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">PPN (%)</label>
+                        <input type="number" class="form-control" id="show_ppn" readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">DP (Rp)</label>
+                        <input type="number" class="form-control" id="show_dp" readonly>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Total</label>
                         <input type="number" class="form-control" id="show_total" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Grand Total</label>
+                        <input type="number" class="form-control" id="show_grand_total" readonly>
                     </div>
                 </div>
 
                 <hr>
                 <h5>Detail Faktur</h5>
-                
+
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -44,7 +70,7 @@
                         </tr>
                     </thead>
                     <tbody id="detailFakturItems">
-                        <!-- Detail items will be added here by JavaScript -->
+                        <!-- Will be filled by JS -->
                     </tbody>
                 </table>
 

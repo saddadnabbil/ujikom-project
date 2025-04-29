@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="stats-icon green">
-                                <i class="bi bi-box"></i>
+                                <i class="iconly-boldTicket"></i>
                             </div>
                         </div>
                         <div class="col-8">
@@ -26,14 +26,14 @@
                 <div class="card-body px-3 py-4-5">
                     <div class="row">
                         <div class="col-4">
-                            <div class="stats-icon green">
-                                <i class="bi bi-box"></i>
+                            <div class="stats-icon blue">
+                                <i class="iconly-boldTicket"></i>
                             </div>
                         </div>
                         <div class="col-8">
-                            <h6 class="text-muted font-semibold">Total Produk</h6>
+                            <h6 class="text-muted font-semibold">Produk Terhapus</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ $totalProductCount }}
+                                {{ $produkTrashedCount }}
                             </h6>
                         </div>
                     </div>

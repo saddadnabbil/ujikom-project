@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="stats-icon green">
-                            <i class="bi bi-receipt"></i>
+                            <i class="iconly-boldTicket"></i>
                         </div>
                     </div>
                     <div class="col-8">
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="stats-icon blue">
-                            <i class="bi bi-trash"></i>
+                            <i class="iconly-boldTicket"></i>
                         </div>
                     </div>
                     <div class="col-8">

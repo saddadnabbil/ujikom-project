@@ -26,8 +26,11 @@
                 url: url,
                 type: 'GET',
                 success: function (response) {
-                    $('#showProductModal #product_name').val(response.data.nama_produk);
-                    $('#showProductModal #product_price').val(response.data.price);
+                    let data = response.data;
+                    $('#showProductModal #show_product_name').val(data.nama_produk);
+                    $('#showProductModal #show_product_price').val(data.price);
+                    $('#showProductModal #show_product_jenis').val(data.jenis);
+                    $('#showProductModal #show_product_stock').val(data.stock);
                     $('#showProductModal').modal('show');
                 },
                 error: function () {
@@ -46,9 +49,12 @@
                 url: url,
                 type: 'GET',
                 success: function (response) {
+                    let data = response.data;
                     $('#editProductModal #edit-product-form').attr('action', formActionURL);
-                    $('#editProductModal #edit_product_name').val(response.data.nama_produk);
-                    $('#editProductModal #edit_product_price').val(response.data.price);
+                    $('#editProductModal #edit_product_name').val(data.nama_produk);
+                    $('#editProductModal #edit_product_price').val(data.price);
+                    $('#editProductModal #edit_product_jenis').val(data.jenis);
+                    $('#editProductModal #edit_product_stock').val(data.stock);
                     $('#editProductModal input').prop('disabled', false);
                     $('#editProductModal').modal('show');
                 },

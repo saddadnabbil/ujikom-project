@@ -36,7 +36,7 @@ class Faktur extends Model
 
     public function detailFakturs()
     {
-        return $this->hasMany(DetailFaktur::class);
+        return $this->hasMany(DetailFaktur::class, 'no_faktur', 'no_faktur');
     }
 
     public function user()

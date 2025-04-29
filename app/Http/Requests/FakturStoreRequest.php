@@ -17,12 +17,17 @@ class FakturStoreRequest extends FormRequest
             'customer_id' => 'required|exists:customers,id',
             'perusahaan_id' => 'required|exists:perusahaans,id',
             'tanggal_faktur' => 'required|date',
-            'total' => 'required|numeric|min:0',
-            'details' => 'required|array|min:1',
-            'details.*.produk_id' => 'required|exists:produks,id',
-            'details.*.jumlah' => 'required|integer|min:1',
-            'details.*.harga_satuan' => 'required|numeric|min:0',
-            'details.*.subtotal' => 'required|numeric|min:0',
+            'due_date' => 'required|date',
+            'metode_bayar' => 'required|string',
+            'ppn' => 'required|numeric',
+            'dp' => 'required|numeric',
+            'total' => 'required|numeric',
+            'grand_total' => 'required|numeric',
+            'details' => 'required|array|min:1', // Ensure at least one detail
+            'details.*.id_produk' => 'required|exists:produks,id_produk', // Validate product ID
+            'details.*.qty' => 'required|integer|min:1', // Validate quantity
+            'details.*.price' => 'required|numeric|min:0', // Validate price
+            'details.*.subtotal' => 'nullable|numeric|min:0', // Optional subtotal validation
         ];
     }
 }

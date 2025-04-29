@@ -27,5 +27,5 @@
 @endsection
 
 @push('js')
-@include('produk.history.script')
+@include('perusahaan.history.script')
 @endpush

@@ -1,5 +1,5 @@
 <div class="modal fade" id="addFakturModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog modal-xl"> <!-- Changed to modal-xl for more space -->
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Faktur</h5>
@@ -9,9 +9,9 @@
                 <form action="{{ route('faktur.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <!-- Nomor Faktur (readonly atau hidden, tergantung implementasi generate otomatis) -->
+                        <!-- Nomor Faktur (hidden) -->
                         <input type="hidden" name="no_faktur" value="{{ old('no_faktur', $autoKode ?? '') }}">
-                
+
                         <!-- Customer -->
                         <div class="col-md-6 mb-3">
                             <label for="customer_id" class="form-label">Customer</label>
@@ -22,7 +22,7 @@
                                 @endforeach
                             </select>
                         </div>
-                
+
                         <!-- Perusahaan -->
                         <div class="col-md-6 mb-3">
                             <label for="perusahaan_id" class="form-label">Perusahaan</label>
@@ -33,7 +33,7 @@
                                 @endforeach
                             </select>
                         </div>
-                
+
                         <!-- Tanggal Faktur & Due Date -->
                         <div class="col-md-6 mb-3">
                             <label for="tanggal_faktur" class="form-label">Tanggal Faktur</label>
@@ -43,7 +43,7 @@
                             <label for="due_date" class="form-label">Jatuh Tempo</label>
                             <input type="date" name="due_date" id="due_date" class="form-control">
                         </div>
-                
+
                         <!-- Metode Bayar -->
                         <div class="col-md-6 mb-3">
                             <label for="metode_bayar" class="form-label">Metode Pembayaran</label>
@@ -54,49 +54,49 @@
                                 <option value="Tempo">Tempo</option>
                             </select>
                         </div>
-                
+
                         <!-- DP & PPN -->
                         <div class="col-md-3 mb-3">
                             <label for="ppn" class="form-label">PPN (%)</label>
-                            <input type="number" class="form-control" name="ppn" id="ppn" value="11" step="0.1" min="0">
+                            <input type="number" class="form-control ppn" name="ppn" id="ppn" value="11" step="0.1" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="dp" class="form-label">DP (Rp)</label>
-                            <input type="number" class="form-control" name="dp" id="dp" value="0" min="0" step="0.01">
+                            <input type="number" class="form-control dp" name="dp" id="dp" value="0" min="0" step="0.01">
                         </div>
-                
+
                         <!-- Total & Grand Total -->
                         <div class="col-md-6 mb-3">
                             <label for="total" class="form-label">Total</label>
-                            <input type="number" class="form-control" name="total" id="total" readonly>
+                            <input type="number" class="form-control total" name="total" id="total" readonly>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="grand_total" class="form-label">Grand Total</label>
-                            <input type="number" class="form-control" name="grand_total" id="grand_total" readonly>
+                            <input type="number" class="form-control grand-total" name="grand_total" id="grand_total" readonly>
                         </div>
                     </div>
-                
+
                     <hr>
                     <h5>Detail Faktur</h5>
-                    
+
                     <div id="detail-items">
                         <div class="row detail-item mb-3">
                             <div class="col-md-4">
-                                <label for="details[0][produk_id]" class="form-label">Produk</label>
-                                <select class="form-select produk-select" name="details[0][produk_id]" required>
-                                    <option value="" selected disabled>Pilih Produk</option>
+                                <label for="details[0][id_produk]" class="form-label">Produk</label>
+                                <select class="form-select produk-select" name="details[0][id_produk]" required>
+                                    <option value="">Pilih Produk</option>
                                     @foreach ($produks as $produk)
-                                    <option value="{{ $produk->id }}" data-harga="{{ $produk->harga }}">{{ $produk->nama_produk }}</option>
+                                    <option value="{{ $produk->id_produk }}" data-harga="{{ $produk->price }}">{{ $produk->nama_produk }} - {{ $produk->jenis }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label for="details[0][jumlah]" class="form-label">Jumlah</label>
-                                <input type="number" class="form-control jumlah" name="details[0][jumlah]" value="1" min="1" required>
+                                <label for="details[0][qty]" class="form-label">Jumlah</label>
+                                <input type="number" class="form-control jumlah" name="details[0][qty]" min="1">
                             </div>
                             <div class="col-md-3">
-                                <label for="details[0][harga_satuan]" class="form-label">Harga Satuan</label>
-                                <input type="number" class="form-control harga-satuan" name="details[0][harga_satuan]" min="0" step="0.01" required>
+                                <label for="details[0][price]" class="form-label">Harga Satuan</label>
+                                <input type="number" class="form-control harga-satuan" name="details[0][price]" min="0" step="0.01">
                             </div>
                             <div class="col-md-3">
                                 <label for="details[0][subtotal]" class="form-label">Subtotal</label>
@@ -104,19 +104,48 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    <div id="detail-item-template" class="d-none">
+                        <div class="row detail-item mb-3">
+                            <div class="col-md-4">
+                                <label for="details[0][id_produk]" class="form-label">Produk</label>
+                                <select class="form-select produk-select" name="details[0][id_produk]" >
+                                    <option value="">Pilih Produk</option>
+                                    @foreach ($produks as $produk)
+                                    <option value="{{ $produk->id_produk }}" data-harga="{{ $produk->price }}">{{ $produk->nama_produk }} - {{ $produk->jenis }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="details[0][qty]" class="form-label">Jumlah</label>
+                                <input type="number" class="form-control jumlah" name="details[0][qty]" value="1" min="1">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="details[0][price]" class="form-label">Harga Satuan</label>
+                                <input type="number" class="form-control harga-satuan" name="details[0][price]" min="0" step="0.01">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="details[0][subtotal]" class="form-label">Subtotal</label>
+                                <input type="number" class="form-control subtotal" name="details[0][subtotal]" min="0" step="0.01" readonly>
+                            </div>
+                            <!-- Remove Button at the end of the row -->
+                            <div class="col-12 text-end">
+                                <button type="button" class="btn btn-sm btn-danger remove-item-btn mt-2">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mb-3">
                         <button type="button" class="btn btn-secondary" id="add-item-btn">
                             <i class="bi bi-plus-circle"></i> Tambah Item
                         </button>
                     </div>
-                
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
-                
             </div>
         </div>
     </div>

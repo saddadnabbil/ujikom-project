@@ -6,18 +6,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProdukEditResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return array
-     */
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'nama_produk' => $this->nama_produk,
-            'harga' => $this->harga,
+            'id_produk'    => $this->id_produk,
+            'nama_produk'  => $this->nama_produk,
+            'price'        => $this->price,
+            'jenis'        => $this->jenis,
+            'stock'        => $this->stock,
         ];
     }
 }

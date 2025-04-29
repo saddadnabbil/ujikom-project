@@ -20,22 +20,14 @@
 
 						<div class="col-sm-12 col-md-6">
 							<div class="mb-3">
-								<label for="edit_email" class="form-label">Email</label>
-								<input type="email" class="form-control" name="email" id="edit_email"
-									placeholder="Masukkan email customer..." required>
+								<label for="edit_perusahaan_cust" class="form-label">Perusahaan Customer</label>
+								<input type="text" class="form-control" name="perusahaan_cust" id="edit_perusahaan_cust"
+									placeholder="Masukkan perusahaan customer..." required>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="col-sm-12 col-md-6">
-							<div class="mb-3">
-								<label for="edit_no_telp" class="form-label">Nomor Telepon</label>
-								<input type="text" class="form-control" name="no_telp" id="edit_no_telp"
-									placeholder="Masukkan nomor telepon..." required>
-							</div>
-						</div>
-
 						<div class="col-sm-12 col-md-6">
 							<div class="mb-3">
 								<label for="edit_alamat" class="form-label">Alamat</label>

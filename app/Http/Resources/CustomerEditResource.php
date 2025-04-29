@@ -10,10 +10,9 @@ class CustomerEditResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama_customer' => $this->nama_customer,
-            'email' => $this->email,
-            'no_telp' => $this->no_telp,
-            'alamat' => $this->alamat
+            'nama_customer' => $this->nama_customer, // Name of the customer
+            'perusahaan_cust' => $this->perusahaan_cust, // Company name
+            'alamat' => $this->alamat, // Address
         ];
     }
 }

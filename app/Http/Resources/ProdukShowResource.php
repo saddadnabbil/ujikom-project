@@ -6,20 +6,16 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProdukShowResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return array
-     */
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'nama_produk' => $this->nama_produk,
-            'harga' => $this->harga,
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'id_produk'    => $this->id_produk,
+            'nama_produk'  => $this->nama_produk,
+            'price'        => $this->price,
+            'jenis'        => $this->jenis,
+            'stock'        => $this->stock,
+            'created_at'   => $this->created_at->toDateTimeString(),
+            'updated_at'   => $this->updated_at->toDateTimeString(),
         ];
     }
 }

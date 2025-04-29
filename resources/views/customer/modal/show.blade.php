@@ -1,5 +1,4 @@
-<div class="modal fade" id="showCustomerModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-	aria-hidden="true">
+<div class="modal fade" id="showCustomerModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -17,20 +16,13 @@
 
 					<div class="col-sm-12 col-md-6">
 						<div class="mb-3">
-							<label for="show_email" class="form-label">Email</label>
-							<input type="email" class="form-control" id="show_email" disabled>
+							<label for="show_perusahaan_cust" class="form-label">Perusahaan</label>
+							<input type="text" class="form-control" id="show_perusahaan_cust" disabled>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-sm-12 col-md-6">
-						<div class="mb-3">
-							<label for="show_no_telp" class="form-label">Nomor Telepon</label>
-							<input type="text" class="form-control" id="show_no_telp" disabled>
-						</div>
-					</div>
-
 					<div class="col-sm-12 col-md-6">
 						<div class="mb-3">
 							<label for="show_alamat" class="form-label">Alamat</label>
@@ -46,4 +38,3 @@
 		</div>
 	</div>
 </div>
-	

@@ -14,10 +14,9 @@ class CustomerUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_customer' => 'required|string|max:255',
-            'email' => 'required|email|unique:customers,email,' . $this->customer->id,
-            'no_telp' => 'required|string|max:15',
-            'alamat' => 'nullable|string|max:500',
+            'nama_customer' => 'required|string|max:255', // Name of the customer is required
+            'perusahaan_cust' => 'required|string|max:255', // Company name is required
+            'alamat' => 'nullable|string|max:500', // Address is optional but can be up to 500 characters
         ];
     }
 }

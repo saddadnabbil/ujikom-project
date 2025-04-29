@@ -14,33 +14,29 @@ class ProdukController extends Controller implements APIInterface
 {
     /**
      * Show the details of a specific product.
-     *
-     * @param int $id
-     * @return JsonResponse
      */
     public function show(int $id): JsonResponse
     {
-        $produk = new ProdukShowResource(Produk::findOrFail($id));
+        $produk = Produk::where('id_produk', $id)->firstOrFail();
+        $resource = new ProdukShowResource($produk);
 
         return response()->json([
             'code' => Response::HTTP_OK,
-            'data' => $produk
+            'data' => $resource
         ]);
     }
 
     /**
      * Edit the details of a specific product.
-     *
-     * @param int $id
-     * @return JsonResponse
      */
     public function edit(int $id): JsonResponse
     {
-        $produk = new ProdukEditResource(Produk::findOrFail($id));
+        $produk = Produk::where('id_produk', $id)->firstOrFail();
+        $resource = new ProdukEditResource($produk);
 
         return response()->json([
             'code' => Response::HTTP_OK,
-            'data' => $produk
+            'data' => $resource
         ]);
     }
 }

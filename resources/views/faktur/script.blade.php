@@ -1,96 +1,109 @@
 <script>
+    // Format number as Rupiah currency
     function formatRupiah(angka) {
         if (!angka && angka !== 0) return "0";
         return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
-    function calculateTotals() {
+    // Calculate Totals (shared logic for both modals)
+    function calculateTotals(modalId) {
         let total = 0;
 
-        $('.detail-item').each(function() {
-            const jumlah = parseFloat($(this).find('.jumlah').val()) || 0;
-            const hargaSatuan = parseFloat($(this).find('.harga-satuan').val()) || 0;
-            const subtotal = jumlah * hargaSatuan;
+        $(`${modalId} .detail-item`).each(function() {
+            const qty = parseFloat($(this).find('.jumlah').val()) || 0;
+            const price = parseFloat($(this).find('.harga-satuan').val()) || 0;
+            const subtotal = qty * price;
 
             $(this).find('.subtotal').val(subtotal.toFixed(2));
             total += subtotal;
         });
 
-        const ppnPersen = parseFloat($('#ppn').val()) || 0;
-        const dp = parseFloat($('#dp').val()) || 0;
-
-        const ppnRupiah = total * (ppnPersen / 100);
+        const ppn = parseFloat($(`${modalId} .ppn`).val()) || 0;
+        const dp = parseFloat($(`${modalId} .dp`).val()) || 0;
+        const ppnRupiah = total * (ppn / 100);
         const grandTotal = total + ppnRupiah - dp;
 
-        $('#total_display').val(formatRupiah(total.toFixed(0)));
-        $('#ppn_rp_display').val(formatRupiah(ppnRupiah.toFixed(0)));
-        $('#grand_total_display').val(formatRupiah(grandTotal.toFixed(0)));
-
-        $('#total').val(total.toFixed(2));
-        $('#ppn_rp').val(ppnRupiah.toFixed(2));
-        $('#grand_total').val(grandTotal.toFixed(2));
+        $(`${modalId} .total`).val(total.toFixed(2));
+        $(`${modalId} .grand-total`).val(grandTotal.toFixed(2));
     }
 
-    let itemIndex = 1;
-
-    $(document).ready(function() {
-        calculateTotals();
-    });
-
-    $(document).on('input', '.jumlah, .harga-satuan, #ppn, #dp', function() {
-        calculateTotals();
-    });
-
-    $(document).on('change', '.produk-select', function() {
-        const selected = $(this).find('option:selected');
-        const harga = selected.data('harga') || 0;
-        const parent = $(this).closest('.detail-item');
-        parent.find('.harga-satuan').val(harga);
-        parent.find('.jumlah').trigger('input');
-    });
-
-    $('#add-item-btn').click(function() {
-        const newItem = $('.detail-item:first').clone();
+    // Add Item Row Function (for Create and Edit)
+    function addItem(modalId, templateId, containerId, indexVar) {
+        const newItem = $(templateId).clone().removeClass('d-none').removeAttr('id');
 
         newItem.find('select, input').each(function() {
             const name = $(this).attr('name');
             if (name) {
-                const newName = name.replace(/\[\d+\]/, `[${itemIndex}]`);
-                $(this).attr('name', newName);
+                // Ganti cara replace: ubah semua [x] menjadi index baru
+                const baseName = name.replace(/\[\d+\]/g, `[${window[indexVar]}]`);
+                $(this).attr('name', baseName);
             }
+            $(this).prop('disabled', false); // pastikan tidak disabled
             $(this).val('');
         });
 
-        if (newItem.find('.remove-item-btn').length === 0) {
-            newItem.append(`
-                <div class="col-md-12 text-end mt-2">
-                    <button type="button" class="btn btn-danger btn-sm remove-item-btn">Hapus</button>
-                </div>
-            `);
-        }
+        $(containerId).append(newItem);
+        window[indexVar]++;
 
-        $('#detail-items').append(newItem);
-        itemIndex++;
-    });
+        calculateTotals(modalId);
+    }
 
+
+    // Remove Item Row (shared logic for both modals)
     $(document).on('click', '.remove-item-btn', function() {
-        if ($('.detail-item').length > 1) {
+        const container = $(this).closest('.modal-body');
+        if (container.find('.detail-item').length > 1) {
             $(this).closest('.detail-item').remove();
-            calculateTotals();
+            calculateTotals(`#${container.closest('.modal').attr('id')}`);
         } else {
             alert("Minimal satu item harus ada.");
         }
     });
-</script>
 
+    $(document).on('change', '.produk-select', function() {
+        const harga = $(this).find(':selected').data('harga') || 0; // Ensure the price is fetched correctly
+        const row = $(this).closest('.detail-item');
+        row.find('.harga-satuan').val(harga); // Set the price in the corresponding field
+        row.find('.jumlah').trigger('input'); // Recalculate subtotal after price change
+    });
+    // Recalculate totals on input (shared logic for both modals)
+    $(document).on('input', '.jumlah, .harga-satuan, .ppn, .dp', function() {
+        const modalId = `#${$(this).closest('.modal').attr('id')}`;
+        calculateTotals(modalId);
+    });
+
+    let createItemIndex = 1; // Starting index for create modal items
+    $('#add-item-btn').click(function() {
+        console.log('Add Item button clicked for Create modal'); // Debugging line
+        addItem('#addFakturModal', '#detail-item-template', '#detail-items', 'createItemIndex');
+    });
+
+    // EDIT modal logic
+    let editItemIndex = 0; // Starting index for edit modal items
+    $('#edit-add-item-btn').click(function() {
+        addItem('#editFakturModal', '#edit-detail-template', '#edit-detail-items', 'editItemIndex');
+    });
+
+    // When showing edit modal, reset counters
+    $('#editFakturModal').on('show.bs.modal', function() {
+        editItemIndex = 0;
+        $('#edit-detail-items').empty(); // Clear previous items when opening the modal
+    });
+
+    // Initialize calculation on modal show (for both Create and Edit)
+    $('#editFakturModal, #createFakturModal').on('shown.bs.modal', function() {
+        const modalId = `#${$(this).attr('id')}`;
+        calculateTotals(modalId);
+    });
+</script>
 
 <script>
     $(function() {
-        // Initialize DataTable
+        // Initialize DataTable for Faktur list
         $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('faktur.index') }}", // Ensure this route is defined in your web.php
+            ajax: "{{ route('faktur.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -138,48 +151,83 @@
             }
         });
 
-        // Handle the detail button click
+        // Fetch and show Faktur details in a modal
         $('#datatable').on('click', '.faktur-detail', function() {
             let id = $(this).data('id');
             let url = "{{ route('api.faktur.show', ':id') }}".replace(':id', id);
 
             // Show loading state in modal fields
-            $('#showFakturModal input, #showFakturModal textarea').val('Memuat data...');
+            $('#showFakturModal input').val('Memuat...');
+
+            // Clear detail table before load
+            $('#detailFakturItems').empty();
 
             // Fetch data via AJAX
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(response) {
-                    // Populate modal fields with data
-                    $('#showFakturModal #show_customer').val(response.data.customer);
-                    $('#showFakturModal #show_perusahaan').val(response.data.perusahaan);
-                    $('#showFakturModal #show_tanggal_faktur').val(response.data
-                        .tanggal_faktur);
-                    $('#showFakturModal #show_total').val(response.data.total);
+                    const data = response.data;
+
+                    // Populate main fields
+                    $('#show_no_faktur').val(data.no_faktur);
+                    $('#show_customer').val(data.customer);
+                    $('#show_perusahaan').val(data.perusahaan);
+                    $('#show_tanggal_faktur').val(data.tanggal_faktur);
+                    $('#show_due_date').val(data.due_date);
+                    $('#show_metode_bayar').val(data.metode_bayar);
+                    $('#show_ppn').val(data.ppn);
+                    $('#show_dp').val(data.dp);
+                    $('#show_total').val(data.total);
+                    $('#show_grand_total').val(data.grand_total);
+
+                    // Populate detail items in the table
+                    let detailItems = data.details;
+                    detailItems.forEach((item, index) => {
+                        $('#detailFakturItems').append(`
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.produk}</td>
+                        <td>${item.jumlah}</td>
+                        <td>${formatRupiah(item.harga_satuan)}</td>
+                        <td>${formatRupiah(item.subtotal)}</td>
+                    </tr>
+                `);
+                    });
+
                     $('#showFakturModal').modal('show');
                 },
                 error: function(xhr) {
-                    // Handle errors
                     alert('Gagal mengambil data faktur. Silakan coba lagi.');
                     console.error(xhr.responseText);
                 }
             });
         });
 
+        // Handle edit Faktur modal
         $('#editFakturModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget); // The button that triggered the modal
-            var fakturId = button.data('id'); // Get the faktur ID from the button
-            var url = "{{ route('api.faktur.edit', ':id') }}".replace(':id',
-            fakturId); // Replace the ID placeholder with actual faktur ID
+            var button = $(event.relatedTarget);
+            var fakturId = button.data('id');
+
+            var url = "{{ route('api.faktur.edit', ':id') }}".replace(':id', fakturId);
+            var formAction = "{{ route('faktur.update', ':id') }}".replace(':id', fakturId);
+
+            // Set form action to correct update route
+            $('#edit-faktur-form').on('submit', function(e) {
+                const formData = $(this).serializeArray();
+                console.log('Form data on submit:', formData);
+            });
+            // Set form action to correct update route
+            $('#edit-faktur-form').attr('action', formAction);
 
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(response) {
                     if (response.code === 200) {
-                        // Populate the modal with the returned data
                         var data = response.data;
+
+                        // Set main fields
                         $('#edit_no_faktur').val(data.no_faktur);
                         $('#edit_customer_id').val(data.customer_id);
                         $('#edit_perusahaan_id').val(data.perusahaan_id);
@@ -191,23 +239,43 @@
                         $('#edit_total').val(data.total);
                         $('#edit_grand_total').val(data.grand_total);
 
-                        // Populate the detail items
+                        // Populate detail items in the edit modal
                         var detailItems = data.details;
-                        $('#edit-detail-items').empty(); // Clear any existing items
+                        $('#edit-detail-items').empty(); // Clear previous items
 
                         detailItems.forEach(function(item, index) {
-                            var newItem = $('#detail-item-template')
-                        .clone(); // Clone the template
-                            newItem.find('.produk-select').val(item.produk_id);
-                            newItem.find('.jumlah').val(item.jumlah);
+                            var newItem = $('#edit-detail-template').clone()
+                                .removeClass('d-none')
+                                .removeAttr('id');
+
+                            // Ubah name attribute setiap input/select sesuai index
+                            newItem.find('select, input').each(function() {
+                                const name = $(this).attr('name');
+                                if (name) {
+                                    const newName = name.replace(/\[\d+\]/,
+                                        `[${index}]`);
+                                    $(this).attr('name', newName);
+                                }
+                            });
+
+                            // Set nilai input
+                            newItem.find('.produk-select').val(item.id_produk
+                                .toString()); // Pastikan id_produk berupa string
                             newItem.find('.harga-satuan').val(item.harga_satuan);
-                            newItem.find('.subtotal').val(item.subtotal);
-                            newItem.removeClass(
-                            'd-none'); // Remove hidden class for the template
-                            newItem.appendTo('#edit-detail-items');
+                            newItem.find('.jumlah').val(item.jumlah);
+
+                            // Hitung subtotal secara manual
+                            var subtotal = (parseFloat(item.harga_satuan) || 0) * (
+                                parseFloat(item.jumlah) || 0);
+                            newItem.find('.subtotal').val(subtotal.toFixed(2));
+
+                            // Tambahkan item ke container
+                            $('#edit-detail-items').append(newItem);
+
+                            // Perbarui index
+                            editItemIndex = index + 1;
                         });
 
-                        // Show the modal
                         $('#editFakturModal').modal('show');
                     } else {
                         alert('Error fetching faktur data');
@@ -218,12 +286,11 @@
                 }
             });
         });
-        
-        // Handle delete button click with confirmation
+
+        // Handle delete confirmation
         $('#datatable').on('click', '.delete-notification', function(e) {
             e.preventDefault();
             let form = $(this).closest('form');
-
             if (confirm('Apakah Anda yakin ingin menghapus faktur ini?')) {
                 form.submit();
             }

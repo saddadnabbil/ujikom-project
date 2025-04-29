@@ -22,10 +22,10 @@ class FakturEditResource extends JsonResource
             'grand_total' => $this->grand_total,
             'details' => $this->detailFakturs->map(function ($detail) {
                 return [
-                    'produk_id' => $detail->produk_id,
-                    'jumlah' => $detail->jumlah,
-                    'harga_satuan' => $detail->harga_satuan,
-                    'subtotal' => $detail->subtotal,
+                    'id_produk' => $detail->id_produk,
+                    'jumlah' => $detail->qty,
+                    'harga_satuan' => $detail->price,
+                    'subtotal' => $detail->price,
                 ];
             }),
         ];

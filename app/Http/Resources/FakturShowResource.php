@@ -10,17 +10,22 @@ class FakturShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'no_faktur' => $this->no_faktur,
             'customer' => $this->customer->nama_customer ?? null,
             'perusahaan' => $this->perusahaan->nama_perusahaan ?? null,
             'tanggal_faktur' => $this->tanggal_faktur,
+            'due_date' => $this->due_date,
+            'metode_bayar' => $this->metode_bayar,
+            'ppn' => $this->ppn,
+            'dp' => $this->dp,
             'total' => $this->total,
-            'detail_fakturs' => $this->detailFakturs->map(function ($detail) {
+            'grand_total' => $this->grand_total,
+            'details' => $this->detailFakturs->map(function ($detail) {
                 return [
-                    'id' => $detail->id,
                     'produk' => $detail->produk->nama_produk ?? null,
-                    'jumlah' => $detail->jumlah,
-                    'harga' => $detail->harga,
-                    'subtotal' => $detail->subtotal,
+                    'jumlah' => $detail->qty,
+                    'harga_satuan' => $detail->qty,
+                    'subtotal' => $detail->qty * $detail->price,
                 ];
             }),
             'created_at' => $this->created_at,

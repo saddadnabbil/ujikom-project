@@ -7,15 +7,23 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="product_name" class="form-label">Nama Produk</label>
-                    <input type="text" class="form-control" id="product_name" disabled>
+                    <label class="form-label">Nama Produk</label>
+                    <input type="text" class="form-control" id="show_product_name" disabled>
                 </div>
+                
                 <div class="mb-3">
-                    <label for="product_price" class="form-label">Harga</label>
-                    <input type="text" class="form-control" id="product_price" disabled>
+                    <label class="form-label">Harga</label>
+                    <input type="text" class="form-control" id="show_product_price" disabled>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                
+                <div class="mb-3">
+                    <label class="form-label">Jenis</label>
+                    <input type="text" class="form-control" id="show_product_jenis" disabled>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Stok</label>
+                    <input type="number" class="form-control" id="show_product_stock" disabled>
                 </div>
             </div>
         </div>

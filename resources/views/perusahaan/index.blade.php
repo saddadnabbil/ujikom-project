@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="stats-icon green">
-                                <i class="bi bi-building"></i>
+                                <i class="iconly-boldTicket"></i>
                             </div>
                         </div>
                         <div class="col-8">
@@ -26,8 +26,8 @@
                 <div class="card-body px-3 py-4-5">
                     <div class="row">
                         <div class="col-4">
-                            <div class="stats-icon green">
-                                <i class="bi bi-building"></i>
+                            <div class="stats-icon blue">
+                                <i class="iconly-boldTicket"></i>
                             </div>
                         </div>
                         <div class="col-8">

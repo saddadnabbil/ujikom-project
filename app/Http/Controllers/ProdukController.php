@@ -19,7 +19,7 @@ class ProdukController extends Controller
 
     public function index(): View|JsonResponse
     {
-        $produks = Produk::select('id', 'nama_produk', 'price')
+        $produks = Produk::select('id_produk', 'nama_produk', 'price')
             ->orderBy('nama_produk')
             ->get();
 

@@ -1,12 +1,5 @@
 <footer>
 	<div class="footer clearfix mb-0 text-muted">
-		<div class="float-start">
-			<p>{{ date('Y') }} &copy; Mazer</p>
-		</div>
-		<div class="float-end">
-			<p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
-					Saugi</a></p>
-		</div>
 	</div>
 </footer>
 </div>
@@ -17,8 +10,6 @@
 <script src="{{ asset('vendors/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-
-<script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
 
 <script src="{{ asset('vendors/toastify/toastify.js') }}"></script>
 

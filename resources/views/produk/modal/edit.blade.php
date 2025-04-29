@@ -9,14 +9,28 @@
                 <form action="#" method="POST" id="edit-product-form">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="id_produk" id="edit_id_produk">
+                
                     <div class="mb-3">
-                        <label for="product_name" class="form-label">Nama Produk</label>
+                        <label for="edit_product_name" class="form-label">Nama Produk</label>
                         <input type="text" class="form-control" name="nama_produk" id="edit_product_name" placeholder="Masukkan nama produk..">
                     </div>
+                
                     <div class="mb-3">
-                        <label for="product_price" class="form-label">Harga</label>
-                        <input type="number" class="form-control" name="price" id="edit_product_price" placeholder="Masukkan price produk..">
+                        <label for="edit_product_price" class="form-label">Harga</label>
+                        <input type="number" class="form-control" name="price" id="edit_product_price" placeholder="Masukkan harga produk..">
                     </div>
+                
+                    <div class="mb-3">
+                        <label for="edit_product_jenis" class="form-label">Jenis</label>
+                        <input type="text" class="form-control" name="jenis" id="edit_product_jenis" placeholder="Masukkan jenis produk..">
+                    </div>
+                
+                    <div class="mb-3">
+                        <label for="edit_product_stock" class="form-label">Stok</label>
+                        <input type="number" class="form-control" name="stock" id="edit_product_stock" placeholder="Masukkan stok produk..">
+                    </div>
+                
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-success">Ubah</button>

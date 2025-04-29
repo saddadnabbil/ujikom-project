@@ -25,10 +25,11 @@
 
 						<div class="col-sm-12 col-md-6">
 							<div class="mb-3">
-								<label for="email" class="form-label">Email</label>
-								<input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-									id="email" value="{{ old('email') }}" placeholder="Masukkan email customer..." required>
-								@error('email')
+								<label for="perusahaan_cust" class="form-label">Perusahaan Customer</label>
+								<input type="text" class="form-control @error('perusahaan_cust') is-invalid @enderror" 
+									name="perusahaan_cust" id="perusahaan_cust" value="{{ old('perusahaan_cust') }}" 
+									placeholder="Masukkan perusahaan customer..." required>
+								@error('perusahaan_cust')
 								<div class="d-block invalid-feedback">
 									{{ $message }}
 								</div>
@@ -38,19 +39,6 @@
 					</div>
 
 					<div class="row">
-						<div class="col-sm-12 col-md-6">
-							<div class="mb-3">
-								<label for="no_telp" class="form-label">Nomor Telepon</label>
-								<input type="text" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp"
-									id="no_telp" value="{{ old('no_telp') }}" placeholder="Masukkan nomor telepon..." required>
-								@error('no_telp')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
-								</div>
-								@enderror
-							</div>
-						</div>
-
 						<div class="col-sm-12 col-md-6">
 							<div class="mb-3">
 								<label for="alamat" class="form-label">Alamat</label>

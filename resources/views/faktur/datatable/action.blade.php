@@ -21,4 +21,10 @@
             </button>
         </form>
     </div>
+    
+    <div class="mx-1">
+        <a href="{{ route('faktur.print', $model->id) }}" target="_blank" class="btn btn-secondary btn-sm">
+            <i class="bi bi-printer"></i>
+        </a>
+    </div>
 </div>

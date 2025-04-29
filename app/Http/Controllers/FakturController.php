@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\Customer;
 use Illuminate\View\View;
 use App\Models\Perusahaan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FakturStoreRequest;
@@ -29,7 +30,7 @@ class FakturController extends Controller
 
         $customers = Customer::all();
         $perusahaans = Perusahaan::all();
-        $produks = Produk::all(); // Add this line
+        $produks = Produk::all();
 
         if (request()->ajax()) {
             return datatables()->of($fakturs)
@@ -51,8 +52,12 @@ class FakturController extends Controller
         return view('faktur.index', compact('totalFakturCount', 'fakturTrashedCount', 'customers', 'perusahaans', 'produks'));
     }
 
-
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param FakturStoreRequest $request
+     * @return RedirectResponse
+     */
     /**
      * Store a newly created resource in storage.
      *
@@ -61,14 +66,20 @@ class FakturController extends Controller
      */
     public function store(FakturStoreRequest $request): RedirectResponse
     {
+        $product = Produk::where('id_produk', 1)->first();
+
         $validated = $request->validated();
 
         // Get details and remove from main data
         $details = $validated['details'];
         unset($validated['details']);
 
+        // Generate a new faktur number or take the provided one
+        $validated['no_faktur'] = $this->generateFakturNumber(); // Assuming a method to generate no_faktur
+
         // Format date
         $validated['tanggal_faktur'] = Carbon::parse($validated['tanggal_faktur'])->format('Y-m-d');
+        $validated['due_date'] = Carbon::parse($validated['due_date'])->format('Y-m-d');
 
         // Start a database transaction
         \DB::beginTransaction();
@@ -77,12 +88,12 @@ class FakturController extends Controller
             // Create the faktur
             $faktur = Faktur::create($validated);
 
-            // Create all detail fakturs
             foreach ($details as $detail) {
-                $faktur->detailFakturs()->create([
-                    'produk_id' => $detail['produk_id'],
-                    'jumlah' => $detail['jumlah'],
-                    'harga_satuan' => $detail['harga_satuan'],
+                \App\Models\DetailFaktur::create([
+                    'no_faktur' => $faktur->no_faktur,
+                    'id_produk' => $detail['id_produk'], // Ensure this is correct
+                    'qty' => $detail['qty'],
+                    'price' => $detail['price'],
                     'subtotal' => $detail['subtotal'],
                 ]);
             }
@@ -95,8 +106,16 @@ class FakturController extends Controller
             // Roll back the transaction if something fails
             \DB::rollback();
 
+            dd($e);
+
             return redirect()->route('faktur.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
+    }
+
+    private function generateFakturNumber(): string
+    {
+        // Example: generate a simple faktur number based on current date and sequence
+        return 'FKT-' . Carbon::now()->format('YmdHis');
     }
 
     /**
@@ -108,10 +127,52 @@ class FakturController extends Controller
      */
     public function update(FakturUpdateRequest $request, Faktur $faktur): RedirectResponse
     {
-        $faktur->update($request->validated());
+        $validated = $request->validated();
 
-        return redirect()->route('faktur.index')->with('success', 'Faktur berhasil diperbarui!');
+        // Get details and remove from main data
+        $details = $validated['details'] ?? null;
+        unset($validated['details']);
+
+
+        // Format date
+        $validated['tanggal_faktur'] = Carbon::parse($validated['tanggal_faktur'])->format('Y-m-d');
+        $validated['due_date'] = Carbon::parse($validated['due_date'])->format('Y-m-d');
+
+        // Start a database transaction
+        \DB::beginTransaction();
+
+        try {
+            // Update the faktur
+            $faktur->update($validated);
+
+            // If details exist, update them as well
+            if ($details) {
+                // Delete existing details first if any
+                $faktur->detailFakturs()->delete();
+
+                // Create new details
+                foreach ($details as $detail) {
+                    $faktur->detailFakturs()->create([
+                        'id_produk' => $detail['id_produk'],
+                        'qty' => $detail['qty'],
+                        'price' => $detail['price'],
+                        'subtotal' => $detail['subtotal'],  // Optional
+                    ]);
+                }
+            }
+
+            // Commit the transaction
+            \DB::commit();
+
+            return redirect()->route('faktur.index')->with('success', 'Faktur berhasil diperbarui!');
+        } catch (\Exception $e) {
+            // Roll back the transaction if something fails
+            \DB::rollback();
+
+            return redirect()->route('faktur.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -124,5 +185,13 @@ class FakturController extends Controller
         $faktur->delete();
 
         return redirect()->route('faktur.index')->with('success', 'Faktur berhasil dihapus!');
+    }
+
+    public function print($id)
+    {
+        $faktur = Faktur::with(['customer', 'perusahaan', 'detailFakturs.produk'])->findOrFail($id);
+        $pdf = Pdf::loadView('faktur.pdf', compact('faktur'))->setPaper('A4', 'portrait');
+
+        return $pdf->stream('Faktur_' . $faktur->no_faktur . '.pdf');
     }
 }

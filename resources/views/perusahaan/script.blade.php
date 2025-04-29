@@ -80,14 +80,5 @@
             });
         });
 
-        // Handle delete button click with confirmation
-        $('#datatable').on('click', '.delete-notification', function (e) {
-            e.preventDefault();
-            let form = $(this).closest('form');
-
-            if (confirm('Apakah Anda yakin ingin menghapus perusahaan ini?')) {
-                form.submit();
-            }
-        });
     });
 </script>
