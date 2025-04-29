@@ -9,6 +9,8 @@
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'nama_perusahaan', name: 'nama_perusahaan' },
                 { data: 'alamat', name: 'alamat' },
+                { data: 'no_telp', name: 'no_telp' },
+                { data: 'fax', name: 'fax' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             language: {
@@ -45,6 +47,8 @@
                     // Populate modal fields with data
                     $('#showPerusahaanModal #show_nama_perusahaan').val(response.data.nama_perusahaan);
                     $('#showPerusahaanModal #show_alamat').val(response.data.alamat);
+                    $('#showPerusahaanModal #show_no_telp').val(response.data.no_telp);
+                    $('#showPerusahaanModal #show_fax').val(response.data.fax);
                     $('#showPerusahaanModal').modal('show');
                 },
                 error: function (xhr) {
@@ -70,6 +74,8 @@
                     $('#editPerusahaanModal #edit-perusahaan-form').attr('action', formActionURL);
                     $('#editPerusahaanModal #edit_nama_perusahaan').val(response.data.nama_perusahaan);
                     $('#editPerusahaanModal #edit_alamat').val(response.data.alamat);
+                    $('#editPerusahaanModal #edit_no_telp').val(response.data.no_telp);
+                    $('#editPerusahaanModal #edit_fax').val(response.data.fax);
                     $('#editPerusahaanModal').modal('show');
                 },
                 error: function (xhr) {

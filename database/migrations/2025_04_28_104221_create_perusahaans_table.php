@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_perusahaan');
             $table->string('alamat')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->string('fax')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

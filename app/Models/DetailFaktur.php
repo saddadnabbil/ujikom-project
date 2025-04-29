@@ -12,8 +12,8 @@ class DetailFaktur extends Model
 
     protected $fillable = [
         'faktur_id',
-        'produk_id',
-        'jumlah',
+        'id_produk',
+        'qty',
         'harga_satuan',
         'subtotal',
     ];
@@ -25,6 +25,6 @@ class DetailFaktur extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class, 'id_produk', 'id_produk');
     }
 }

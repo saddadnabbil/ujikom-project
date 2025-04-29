@@ -37,7 +37,8 @@
                         <!-- Tanggal Faktur & Due Date -->
                         <div class="col-md-6 mb-3">
                             <label for="tanggal_faktur" class="form-label">Tanggal Faktur</label>
-                            <input type="date" name="tanggal_faktur" id="tanggal_faktur" class="form-control" required>
+                            <input type="date" name="tanggal_faktur" id="tanggal_faktur" class="form-control"
+                                required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="due_date" class="form-label">Jatuh Tempo</label>
@@ -58,21 +59,35 @@
                         <!-- DP & PPN -->
                         <div class="col-md-3 mb-3">
                             <label for="ppn" class="form-label">PPN (%)</label>
-                            <input type="number" class="form-control ppn" name="ppn" id="ppn" value="11" step="0.1" min="0">
+                            <input type="number" class="form-control ppn" name="ppn" id="ppn" value="11"
+                                step="0.1" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="dp" class="form-label">DP (Rp)</label>
-                            <input type="number" class="form-control dp" name="dp" id="dp" value="0" min="0" step="0.01">
+                            <label for="dp_display" class="form-label">DP (Rp)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="text" class="form-control" id="dp_display" placeholder="0"
+                                    autocomplete="off" value="0">
+                                <input type="hidden" name="dp" id="dp" value="0">
+                            </div>
                         </div>
 
                         <!-- Total & Grand Total -->
                         <div class="col-md-6 mb-3">
-                            <label for="total" class="form-label">Total</label>
-                            <input type="number" class="form-control total" name="total" id="total" readonly>
+                            <label for="total_display" class="form-label">Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="text" class="form-control" id="total_display" readonly>
+                                <input type="hidden" name="total" id="total" readonly>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="grand_total" class="form-label">Grand Total</label>
-                            <input type="number" class="form-control grand-total" name="grand_total" id="grand_total" readonly>
+                            <label for="grand_total_display" class="form-label">Grand Total</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="text" class="form-control" id="grand_total_display" readonly>
+                                <input type="hidden" name="grand_total" id="grand_total" readonly>
+                            </div>
                         </div>
                     </div>
 
@@ -86,23 +101,38 @@
                                 <select class="form-select produk-select" name="details[0][id_produk]" required>
                                     <option value="">Pilih Produk</option>
                                     @foreach ($produks as $produk)
-                                    <option value="{{ $produk->id_produk }}" data-harga="{{ $produk->price }}">{{ $produk->nama_produk }} - {{ $produk->jenis }}</option>
+                                        <option value="{{ $produk->id_produk }}" data-harga="{{ $produk->price }}">
+                                            {{ $produk->nama_produk }} - {{ $produk->jenis }}</option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback">Produk harus dipilih</div>
                             </div>
                             <div class="col-md-2">
                                 <label for="details[0][qty]" class="form-label">Jumlah</label>
-                                <input type="number" class="form-control jumlah" name="details[0][qty]" min="1">
+                                <input type="number" class="form-control jumlah" name="details[0][qty]"
+                                    value="1" min="1" required>
+                                <div class="invalid-feedback">Jumlah harus diisi</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="details[0][price]" class="form-label">Harga Satuan</label>
-                                <input type="number" class="form-control harga-satuan" name="details[0][price]" min="0" step="0.01">
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="text" class="form-control harga-satuan-display"
+                                        autocomplete="off">
+                                    <input type="hidden" class="harga-satuan" name="details[0][price]" required>
+                                </div>
+                                <div class="invalid-feedback">Harga harus diisi</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="details[0][subtotal]" class="form-label">Subtotal</label>
-                                <input type="number" class="form-control subtotal" name="details[0][subtotal]" min="0" step="0.01" readonly>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="text" class="form-control subtotal-display" readonly>
+                                    <input type="hidden" class="subtotal" name="details[0][subtotal]" readonly>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div id="detail-item-template" class="d-none">
@@ -112,27 +142,38 @@
                                 <select class="form-select produk-select" name="details[0][id_produk]" >
                                     <option value="">Pilih Produk</option>
                                     @foreach ($produks as $produk)
-                                    <option value="{{ $produk->id_produk }}" data-harga="{{ $produk->price }}">{{ $produk->nama_produk }} - {{ $produk->jenis }}</option>
+                                        <option value="{{ $produk->id_produk }}" data-harga="{{ $produk->price }}">
+                                            {{ $produk->nama_produk }} - {{ $produk->jenis }}</option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback">Produk harus dipilih</div>
                             </div>
                             <div class="col-md-2">
                                 <label for="details[0][qty]" class="form-label">Jumlah</label>
-                                <input type="number" class="form-control jumlah" name="details[0][qty]" value="1" min="1">
+                                <input type="number" class="form-control jumlah" name="details[0][qty]"
+                                    value="1" min="1" required>
+                                <div class="invalid-feedback">Jumlah harus diisi</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="details[0][price]" class="form-label">Harga Satuan</label>
-                                <input type="number" class="form-control harga-satuan" name="details[0][price]" min="0" step="0.01">
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="text" class="form-control harga-satuan-display"
+                                        autocomplete="off">
+                                    <input type="hidden" class="harga-satuan" name="details[0][price]">
+                                </div>
+                                <div class="invalid-feedback">Harga harus diisi</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="details[0][subtotal]" class="form-label">Subtotal</label>
-                                <input type="number" class="form-control subtotal" name="details[0][subtotal]" min="0" step="0.01" readonly>
-                            </div>
-                            <!-- Remove Button at the end of the row -->
-                            <div class="col-12 text-end">
-                                <button type="button" class="btn btn-sm btn-danger remove-item-btn mt-2">Remove</button>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="text" class="form-control subtotal-display" readonly>
+                                    <input type="hidden" class="subtotal" name="details[0][subtotal]" readonly>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="mb-3">

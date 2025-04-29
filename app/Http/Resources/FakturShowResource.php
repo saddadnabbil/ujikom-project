@@ -22,10 +22,11 @@ class FakturShowResource extends JsonResource
             'grand_total' => $this->grand_total,
             'details' => $this->detailFakturs->map(function ($detail) {
                 return [
-                    'produk' => $detail->produk->nama_produk ?? null,
+                    'no_faktur' => $this->no_faktur,
+                    'produk' => $detail->produk->nama_produk,
                     'jumlah' => $detail->qty,
-                    'harga_satuan' => $detail->qty,
-                    'subtotal' => $detail->qty * $detail->price,
+                    'harga_satuan' => $detail->produk->price,
+                    'subtotal' => $detail->qty * $detail->produk->price,
                 ];
             }),
             'created_at' => $this->created_at,

@@ -30,6 +30,9 @@ class ProdukHistoryController extends Controller implements HistoryInterface
         if (request()->ajax()) {
             return datatables()->of($products)
                 ->addIndexColumn()
+                ->addColumn('price', function ($row) {
+                    return 'Rp ' . number_format($row->price, 0, ',', '.');
+                })
                 ->addColumn('action', 'produk.history.datatable.action') // Menyesuaikan dengan view bagian action
                 ->rawColumns(['action'])
                 ->toJson();

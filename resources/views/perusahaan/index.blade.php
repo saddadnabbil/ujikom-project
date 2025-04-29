@@ -60,6 +60,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Nama Perusahaan</th>
                             <th scope="col">Alamat</th>
+                            <th scope="col">No Telepon</th>
+                            <th scope="col">Fax</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>

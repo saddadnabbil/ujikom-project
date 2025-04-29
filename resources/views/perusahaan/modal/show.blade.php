@@ -14,6 +14,14 @@
                     <label for="show_alamat" class="form-label">Alamat</label>
                     <textarea class="form-control" id="show_alamat" rows="3" disabled></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="show_no_telp" class="form-label">No Telp</label>
+                    <input type="text" class="form-control" id="show_no_telp" rows="3" disabled></input>
+                </div>
+                <div class="mb-3">
+                    <label for="show_fax" class="form-label">Fax</label>
+                    <input type="text" class="form-control" id="show_fax" rows="3" disabled></input>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>

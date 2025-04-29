@@ -17,8 +17,12 @@
                     </div>
                 
                     <div class="mb-3">
-                        <label for="edit_product_price" class="form-label">Harga</label>
-                        <input type="number" class="form-control" name="price" id="edit_product_price" placeholder="Masukkan harga produk..">
+                        <label for="edit_product_price_display" class="form-label">Harga</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" class="form-control" id="edit_product_price_display" placeholder="Masukkan harga produk.." autocomplete="off">
+                            <input type="hidden" name="price" id="edit_product_price_actual">
+                        </div>
                     </div>
                 
                     <div class="mb-3">

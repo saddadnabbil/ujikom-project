@@ -18,7 +18,7 @@ class PerusahaanController extends Controller
      */
     public function index(): View|JsonResponse
     {
-        $perusahaans = Perusahaan::select('id', 'nama_perusahaan', 'alamat')
+        $perusahaans = Perusahaan::select('id', 'nama_perusahaan', 'alamat', 'no_telp', 'fax')
             ->orderBy('nama_perusahaan')
             ->get();
 

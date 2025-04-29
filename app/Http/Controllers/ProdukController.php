@@ -26,6 +26,9 @@ class ProdukController extends Controller
         if (request()->ajax()) {
             return datatables()->of($produks)
                 ->addIndexColumn()
+                ->addColumn('price', function ($row) {
+                    return 'Rp ' . number_format($row->price, 0, ',', '.');
+                })
                 ->addColumn('action', 'produk.datatable.action')
                 ->rawColumns(['action'])
                 ->toJson();
@@ -33,7 +36,6 @@ class ProdukController extends Controller
 
         $totalProductCount = Produk::count(); // Total products
         $produkTrashedCount = Produk::onlyTrashed()->count(); // Count of trashed products
-
 
         return view('produk.index', compact('totalProductCount', 'produkTrashedCount'));
     }

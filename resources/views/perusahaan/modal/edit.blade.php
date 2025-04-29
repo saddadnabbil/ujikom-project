@@ -17,6 +17,10 @@
                         <label for="edit_alamat" class="form-label">Alamat</label>
                         <textarea class="form-control" name="alamat" id="edit_alamat" rows="3" placeholder="Masukkan alamat perusahaan.."></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="edit_no_telp" class="form-label">No Telp</label>
+                        <input type="text" class="form-control" name="no_telp" id="edit_no_telp" placeholder="Masukkan No Telpon..">
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-success">Ubah</button>

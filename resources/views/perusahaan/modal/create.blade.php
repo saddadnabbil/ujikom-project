@@ -22,6 +22,20 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="no_telp" class="form-label">No Telepon</label>
+                        <input type="text" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" id="no_telp" placeholder="Masukkan no telepon perusahaan..">
+                        @error('no_telp')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="fax" class="form-label">Fax</label>
+                        <input type="text" class="form-control @error('fax') is-invalid @enderror" name="fax" id="fax" placeholder="Masukkan no telepon perusahaan..">
+                        @error('fax')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>

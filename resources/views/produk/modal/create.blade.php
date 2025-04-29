@@ -15,9 +15,13 @@
                     </div>
                 
                     <div class="mb-3">
-                        <label for="product_price" class="form-label">Harga</label>
-                        <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" id="product_price" placeholder="Masukkan harga produk..">
-                        @error('price') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label for="product_price_display" class="form-label">Harga</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" class="form-control @error('price') is-invalid @enderror" id="product_price_display" placeholder="Masukkan harga produk.." autocomplete="off">
+                            <input type="hidden" name="price" id="product_price_actual">
+                            @error('price') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
                     </div>
                 
                     <div class="mb-3">
@@ -37,7 +41,6 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
-                
             </div>
         </div>
     </div>
