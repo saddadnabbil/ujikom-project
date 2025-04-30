@@ -1,4 +1,4 @@
-@extends('layouts.main', ['title' => 'Administrator', 'page_heading' => 'Data Administrator'])
+@extends('layouts.main', ['title' => 'User', 'page_heading' => 'Data User'])
 
 @section('content')
 <section class="row">
@@ -6,10 +6,6 @@
     <div class="col card px-3 py-3">
         <div class="d-flex justify-content-end pb-3">
             <div class="btn-group d-gap gap-2">
-                <a href="{{ route('administrators.export') }}" class="btn btn-success">
-                    <i class="bi bi-file-earmark-excel-fill"></i>
-                    Export Excel
-                </a>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#addAdministratorModal">
                     <i class="bi bi-plus-circle"></i> Tambah Data

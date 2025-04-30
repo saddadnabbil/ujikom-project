@@ -21,37 +21,34 @@
     <ul class="menu">
         <li class="sidebar-title">Master Data</li>
 
-        <li class="sidebar-item {{ request()->routeIs('produk.*') ? 'active' : '' }}">
-            <a href="{{ route('produk.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('buku.*') ? 'active' : '' }}">
+            <a href="{{ route('buku.index') }}" class='sidebar-link'>
                 <i class="bi bi-box"></i>
-                <span>Produk</span>
+                <span>Buku</span>
             </a>
         </li>
-
-        <li class="sidebar-item {{ request()->routeIs('customer.*') ? 'active' : '' }}">
-            <a href="{{ route('customer.index') }}" class='sidebar-link'>
-                <i class="bi bi-people-fill"></i>
-                <span>Customer</span>
+        <li class="sidebar-item {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
+            <a href="{{ route('kategori.index') }}" class='sidebar-link'>
+                <i class="bi bi-box"></i>
+                <span>Kategori</span>
             </a>
         </li>
-
-        <li class="sidebar-item {{ request()->routeIs('perusahaan.*') ? 'active' : '' }}">
-            <a href="{{ route('perusahaan.index') }}" class='sidebar-link'>
-                <i class="bi bi-building"></i>
-                <span>Perusahaan</span>
+        <li class="sidebar-item {{ request()->routeIs('administrators.*') ? 'active' : '' }}">
+            <a href="{{ route('administrators.index') }}" class='sidebar-link'>
+                <i class="bi bi-box"></i>
+                <span>User</span>
             </a>
         </li>
-
+        <li class="sidebar-item {{ request()->routeIs('anggota.*') ? 'active' : '' }}">
+            <a href="{{ route('anggota.index') }}" class='sidebar-link'>
+                <i class="bi bi-box"></i>
+                <span>Anggota</span>
+            </a>
+        </li>
     </ul>
     <ul class="menu">
         <li class="sidebar-title">Transaksi</li>
 
-        <li class="sidebar-item {{ request()->routeIs('faktur.*') ? 'active' : '' }}">
-            <a href="{{ route('faktur.index') }}" class='sidebar-link'>
-                <i class="bi bi-receipt"></i>
-                <span>Faktur</span>
-            </a>
-        </li>
     </ul>
 
     <ul class="menu">
