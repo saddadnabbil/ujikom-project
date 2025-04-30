@@ -51,7 +51,7 @@
                     $('#editKategoriModal').modal('show');
                 },
                 error: function() {
-                    alert('Gagal mengambil data buku untuk edit.');
+                    alert('Gagal mengambil data kategori untuk edit.');
                 }
             });
         });

@@ -45,6 +45,13 @@
                 <span>Anggota</span>
             </a>
         </li>
+
+        <li class="sidebar-item {{ request()->routeIs('denda.*') ? 'active' : '' }}">
+            <a href="{{ route('denda.index') }}" class='sidebar-link'>
+                <i class="bi bi-box"></i>
+                <span>Denda</span>
+            </a>
+        </li>
     </ul>
     <ul class="menu">
         <li class="sidebar-title">Transaksi</li>

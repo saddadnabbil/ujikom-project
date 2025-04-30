@@ -13,10 +13,12 @@ use App\Http\Controllers\API\v1\SchoolClassController;
 use App\Http\Controllers\API\v1\SchoolMajorController;
 use App\Http\Controllers\API\v1\DetailFakturController;
 use App\Http\Controllers\API\v1\AdministratorController;
+use App\Http\Controllers\API\v1\AnggotaController;
 use App\Http\Controllers\API\v1\DashboardChartController;
 use App\Http\Controllers\API\v1\CashTransactionController;
 use App\Http\Controllers\API\v1\DashboardChartExpenditureController;
 use App\Http\Controllers\API\v1\CashTransactionExpenditureController;
+use App\Http\Controllers\API\v1\DendaController;
 
 Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/administrator/{id}', [AdministratorController::class, 'show'])->name('administrator.show');
@@ -27,4 +29,10 @@ Route::name('api.')->prefix('v1')->group(function () {
 
     Route::get('/kategori/{id}', [KategoriController::class, 'show'])->name('kategori.show');
     Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+
+    Route::get('/anggota/{id}', [AnggotaController::class, 'show'])->name('anggota.show');
+    Route::get('/anggota/{id}/edit', [AnggotaController::class, 'edit'])->name('anggota.edit');
+
+    Route::get('/denda/{id}', [DendaController::class, 'show'])->name('denda.show');
+    Route::get('/denda/{id}/edit', [DendaController::class, 'edit'])->name('denda.edit');
 });
