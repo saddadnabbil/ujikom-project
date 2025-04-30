@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BukuStoreRequest;
@@ -52,5 +53,14 @@ class BukuController extends Controller
         $buku->delete();
 
         return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus!');
+    }
+
+    public function generatePdf()
+    {
+        $bukus = Buku::with('kategori')->orderBy('judul')->get();
+
+        $pdf = Pdf::loadView('buku.pdf', compact('bukus'))->setPaper('A4', 'portrait');
+
+        return $pdf->stream('Anggota.pdf');
     }
 }

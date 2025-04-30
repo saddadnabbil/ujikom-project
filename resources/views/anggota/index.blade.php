@@ -41,6 +41,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAnggotaModal">
                         <i class="bi bi-plus-circle"></i> Tambah Anggota
                     </button>
+                    <a href="{{ route('anggota.export') }}" class="btn btn-success">Download Data</a>
                 </div>
             </div>
 

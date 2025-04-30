@@ -1,4 +1,4 @@
-@extends('layouts.main', ['title' => 'Buku', 'page_heading' => 'Data Buku'])
+@extends('layouts.main', ['title' => 'Peminjaman', 'page_heading' => 'Data Peminjaman'])
 
 @section('content')
     <section class="row">
@@ -12,9 +12,9 @@
                             </div>
                         </div>
                         <div class="col-8">
-                            <h6 class="text-muted font-semibold">Total Buku</h6>
+                            <h6 class="text-muted font-semibold">Total Data Peminjaman</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ $totalBukuCount }}
+                                {{ $totalPeminjamanCount }}
                             </h6>
                         </div>
                     </div>
@@ -38,10 +38,9 @@
         <div class="col card px-3 py-3">
             <div class="d-flex justify-content-end pb-3">
                 <div class="btn-group d-gap gap-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBukuModal">
-                        <i class="bi bi-plus-circle"></i> Tambah Buku
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPeminjamanModal">
+                        <i class="bi bi-plus-circle"></i> Tambah Peminjaman
                     </button>
-                    <a href="{{ route('buku.export') }}" class="btn btn-success">Download Data</a>
                 </div>
             </div>
 
@@ -50,12 +49,11 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Judul Buku</th>
-                            <th scope="col">Pengarang</th>
-                            <th scope="col">Penerbit</th>
-                            <th scope="col">Tahun Terbit</th>
-                            <th scope="col">ISBN</th>
-                            <th scope="col">Stok</th>
+                            <th scope="col">ID Pinjam</th>
+                            <th scope="col">Lama Pinjam (hari)</th>
+                            <th scope="col">Nominal Denda</th>
+                            {{-- <th scope="col">Anggota</th>
+                            <th scope="col">User</th> --}}
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -68,11 +66,11 @@
 @endsection
 
 @push('modal')
-    @include('buku.modal.create')
-    @include('buku.modal.edit')
-    @include('buku.modal.show')
+    @include('peminjaman.modal.create')
+    @include('peminjaman.modal.edit')
+    @include('peminjaman.modal.show')
 @endpush
 
 @push('js')
-    @include('buku.script')
+    @include('peminjaman.script')
 @endpush

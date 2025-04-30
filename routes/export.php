@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FakturController;
-use App\Http\Controllers\Export\StudentController;
-use App\Http\Controllers\Export\AdministratorController;
-use App\Http\Controllers\Export\CashTransactionController;
-use App\Http\Controllers\Export\CashTransactionReportController;
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\PeminjamanController;
 
-Route::get('/faktur/{id}/print', [FakturController::class, 'print'])->name('faktur.print');
+Route::get('anggota/pdf', [AnggotaController::class, 'generatePdf'])->name('anggota.export');
+Route::get('buku/pdf', [BukuController::class, 'generatePdf'])->name('buku.export');
+Route::get('peminjaman/pdf', [PeminjamanController::class, 'generatePdf'])->name('peminjaman.export');

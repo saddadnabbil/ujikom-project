@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\AnggotaStoreRequest;
@@ -48,5 +49,14 @@ class AnggotaController extends Controller
         $kategori->delete();
 
         return redirect()->route('anggota.index')->with('success', 'Anggota berhasil dihapus!');
+    }
+
+    public function generatePdf()
+    {
+        $anggotas = Anggota::all(); // Fetch all anggota data
+
+        $pdf = Pdf::loadView('anggota.pdf', compact('anggotas'))->setPaper('A4', 'portrait');
+
+        return $pdf->stream('Anggota.pdf');
     }
 }

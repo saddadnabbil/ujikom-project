@@ -10,7 +10,7 @@ class Peminjaman extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'peminjaman';
+    protected $table = 'peminjamen';
 
     protected $fillable = [
         'id_pinjam',
@@ -32,13 +32,13 @@ class Peminjaman extends Model
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    public function detailPinjam()
-    {
-        return $this->hasMany(DetailPinjam::class, 'id_pinjam');
-    }
-
     public function denda()
     {
         return $this->belongsTo(Denda::class, 'id_denda');
+    }
+
+    public function detailPinjam()
+    {
+        return $this->hasMany(DetailPinjam::class, 'id_pinjam');
     }
 }

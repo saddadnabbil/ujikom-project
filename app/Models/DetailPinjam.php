@@ -10,7 +10,7 @@ class DetailPinjam extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'detail_pinjam';
+    protected $table = 'detail_pinjams';
 
     protected $fillable = [
         'id_pinjam',

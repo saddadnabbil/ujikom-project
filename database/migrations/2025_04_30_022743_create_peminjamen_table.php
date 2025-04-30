@@ -16,10 +16,10 @@ return new class extends Migration {
             $table->id();
             $table->string('id_pinjam');
             $table->string('lama_pinjam');
-            $table->string('nominal_denda');
+            $table->string('nominal_denda')->nullable();
             $table->foreignId('id_anggota')->constrained('anggotas');
-            $table->foreignId('id_denda')->constrained('dendas');
-            $table->foreignId('id_user')->constrained('users');
+            $table->foreignId('id_denda')->nullable()->constrained('dendas');
+            $table->foreignId('id_user')->nullable()->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });

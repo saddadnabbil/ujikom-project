@@ -1,24 +1,12 @@
 <?php
 
-use App\Models\Produk;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\BukuController;
-use App\Http\Controllers\API\v1\FakturController;
-use App\Http\Controllers\API\v1\ProdukController;
-use App\Http\Controllers\API\v1\StudentController;
-use App\Http\Controllers\API\v1\CustomerController;
 use App\Http\Controllers\API\v1\KategoriController;
-use App\Http\Controllers\API\v1\PerusahaanController;
-use App\Http\Controllers\API\v1\SchoolClassController;
-use App\Http\Controllers\API\v1\SchoolMajorController;
-use App\Http\Controllers\API\v1\DetailFakturController;
 use App\Http\Controllers\API\v1\AdministratorController;
 use App\Http\Controllers\API\v1\AnggotaController;
-use App\Http\Controllers\API\v1\DashboardChartController;
-use App\Http\Controllers\API\v1\CashTransactionController;
-use App\Http\Controllers\API\v1\DashboardChartExpenditureController;
-use App\Http\Controllers\API\v1\CashTransactionExpenditureController;
 use App\Http\Controllers\API\v1\DendaController;
+use App\Http\Controllers\API\v1\PeminjamanController;
 
 Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/administrator/{id}', [AdministratorController::class, 'show'])->name('administrator.show');
@@ -35,4 +23,7 @@ Route::name('api.')->prefix('v1')->group(function () {
 
     Route::get('/denda/{id}', [DendaController::class, 'show'])->name('denda.show');
     Route::get('/denda/{id}/edit', [DendaController::class, 'edit'])->name('denda.edit');
+
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+    Route::get('/peminjaman/{id}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
 });

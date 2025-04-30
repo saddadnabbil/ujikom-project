@@ -55,7 +55,12 @@
     </ul>
     <ul class="menu">
         <li class="sidebar-title">Transaksi</li>
-
+        <li class="sidebar-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
+            <a href="{{ route('peminjaman.index') }}" class='sidebar-link'>
+                <i class="bi bi-box"></i>
+                <span>Peminjaman</span>
+            </a>
+        </li>
     </ul>
 
     <ul class="menu">
